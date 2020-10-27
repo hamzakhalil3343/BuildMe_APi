@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var passport = require('passport');
-
+const cors=require('cors')
 
 //db connection
 const url = config.mongoUrl;
@@ -33,6 +33,7 @@ app.set('view engine', 'jade');
 
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
