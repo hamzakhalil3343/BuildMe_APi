@@ -184,7 +184,7 @@ var orderSchema = new Schema({
 const shopSchema = new Schema({
     shop_name: {
         type: String,
-        required: true,
+        required: false,
         unique: true
     },
     isAuthenticated: {
