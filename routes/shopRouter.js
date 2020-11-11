@@ -128,7 +128,7 @@ shopRouter.route('/:shopId/iron')
 .put((req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /shopes/'
-        + req.params.dishId + '/iron');
+        + req.params.shopId + '/iron');
 })
 .delete((req, res, next) => {
     shops.findById(req.params.shopId)
@@ -153,4 +153,117 @@ shopRouter.route('/:shopId/iron')
     .catch((err) => next(err)); 
 });
 
+
+//Route of  iron by ID 
+
+
+shopRouter.route('/:shopId/iron/:ironId')
+.get((req,res,next) => {
+    shops.findById(req.params.shopId)
+    .then((shop) => {
+        if (shop != null && shop.iron.id(req.params.ironId) != null) {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(shop.iron.id(req.params.ironId));
+        }
+        else if (shop == null) {
+            err = new Error('shop ' + req.params.shopId + ' not found');
+            err.status = 404;
+            return next(err);
+        }
+        else {
+            err = new Error('Iron ' + req.params.ironId + ' not found');
+            err.status = 404;
+            return next(err);            
+        }
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+.post((req, res, next) => {
+    res.statusCode = 403;
+    res.end('POST operation not supported on /shops/'+ req.params.shopId
+        + '/iron/' + req.params.ironId);
+})
+.put((req, res, next) => {
+    shops.findById(req.params.shopId)
+    .then((shop) => {
+        if (shop != null && shop.iron.id(req.params.ironId) != null) {
+            // check if the user updating the iron is the same one who posted it
+            // in the first place
+            var req_iron_id = shop.iron.id(req.params.ironId);
+            if (req_iron_id) {
+                if (req.body.price) {
+                    shop.iron.id(req.params.ironId).price = req.body.price;
+                }
+                if (req.body.quantitie) {
+                    shop.iron.id(req.params.ironId).quantitie = req.body.quantitie;
+                }
+                if (req.body.iron) {
+                    shop.iron.id(req.params.ironId).iron = req.body.iron;                
+                }
+                shop.save()
+                .then((shop) => {
+                    shops.findById(shop._id)
+                    .then((shop) => {
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(shop);  
+                    })              
+                }, (err) => next(err));
+            }
+            else {
+                err = new Error('You cannot update this iron as you are not the author of it!');
+                err.status = 403;
+                return next(err);
+            }
+        }
+        else if (shop == null) {
+            err = new Error('shop ' + req.params.shopId + ' not found');
+            err.status = 404;
+            return next(err);
+        }
+        else {
+            err = new Error('iron ' + req.params.ironId + ' not found');
+            err.status = 404;
+            return next(err);            
+        }
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+.delete((req, res, next) => {
+    shops.findById(req.params.shopId)
+    .then((shop) => {
+        if (shop != null && shop.iron.id(req.params.ironId) != null) {
+            var req_iron_id = shop.iron.id(req.params.ironId);
+            if (req_iron_id) {
+                shop.iron.id(req.params.ironId).remove();
+                shop.save()
+                .then((shop) => {
+                    shops.findById(shop._id)
+                    .then((shop) => {
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(shop);  
+                    })               
+                }, (err) => next(err));
+            }
+            else {
+                err = new Error('You cannot delete this iron as you are not the author of it!');
+                err.status = 403;
+                return next(err);
+            }
+        }
+        else if (shop == null) {
+            err = new Error('shop ' + req.params.shopId + ' not found');
+            err.status = 404;
+            return next(err);
+        }
+        else {
+            err = new Error('iron ' + req.params.ironId + ' not found');
+            err.status = 404;
+            return next(err);            
+        }
+    }, (err) => next(err))
+    .catch((err) => next(err));
+});
 module.exports = shopRouter;
