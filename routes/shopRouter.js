@@ -266,4 +266,203 @@ shopRouter.route('/:shopId/iron/:ironId')
     }, (err) => next(err))
     .catch((err) => next(err));
 });
+
+
+
+
+
+
+                                      //Glass router  Goes Here 
+
+
+shopRouter.route('/:shopId/glass')
+.get((req,res,next) => {
+    shops.findById(req.params.shopId)
+    .then((shop) => {
+        if (shop != null) {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(shop.glass);
+        }
+        else {
+            err = new Error('shop ' + req.params.shopId + ' not found');
+            err.status = 404;
+            return next(err);
+        }
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+.post((req, res, next) => {
+    shops.findById(req.params.shopId)
+    .then((shop) => {
+        if (shop != null) {
+            // console.log('req of user  id ',req.user._id);
+            // req.body.author = req.user._id;
+            console.log('req of body',req.body);
+
+            shop.glass.push(req.body);
+
+            shop.save()
+            .then((shop) => {
+                shops.findById(shop._id)
+               
+                .then((shop) => {
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.json(shop);
+                })            
+            }, (err) => next(err));
+        }
+        else {
+            err = new Error('shop ' + req.params.shopId + ' not found');
+            err.status = 404;
+            return next(err);
+        }
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+.put((req, res, next) => {
+    res.statusCode = 403;
+    res.end('PUT operation not supported on /shopes/'
+        + req.params.shopId + '/glass');
+})
+.delete((req, res, next) => {
+    shops.findById(req.params.shopId)
+    .then((shop) => {
+        if (shop != null) {
+            for (var i = (shop.glass.length -1); i >= 0; i--) {
+                shop.glass.id(shop.glass[i]._id).remove();
+            }
+            shop.save()
+            .then((shop) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(shop);                
+            }, (err) => next(err));
+        }
+        else {
+            err = new Error('shop ' + req.params.shopId + ' not found');
+            err.status = 404;
+            return next(err);
+        }
+    }, (err) => next(err))
+    .catch((err) => next(err)); 
+});
+
+
+//Route of  glass by ID 
+
+
+shopRouter.route('/:shopId/glass/:glassId')
+.get((req,res,next) => {
+    shops.findById(req.params.shopId)
+    .then((shop) => {
+        if (shop != null && shop.glass.id(req.params.glassId) != null) {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(shop.glass.id(req.params.glassId));
+        }
+        else if (shop == null) {
+            err = new Error('shop ' + req.params.shopId + ' not found');
+            err.status = 404;
+            return next(err);
+        }
+        else {
+            err = new Error('glass ' + req.params.glassId + ' not found');
+            err.status = 404;
+            return next(err);            
+        }
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+.post((req, res, next) => {
+    res.statusCode = 403;
+    res.end('POST operation not supported on /shops/'+ req.params.shopId
+        + '/glass/' + req.params.glassId);
+})
+.put((req, res, next) => {
+    shops.findById(req.params.shopId)
+    .then((shop) => {
+        if (shop != null && shop.glass.id(req.params.glassId) != null) {
+            // check if the user updating the glass is the same one who posted it
+            // in the first place
+            var req_glass_id = shop.glass.id(req.params.glassId);
+            if (req_glass_id) {
+                if (req.body.price) {
+                    shop.glass.id(req.params.glassId).price = req.body.price;
+                }
+                if (req.body.quantitie) {
+                    shop.glass.id(req.params.glassId).quantitie = req.body.quantitie;
+                }
+                if (req.body.glass) {
+                    shop.glass.id(req.params.glassId).glass = req.body.glass;                
+                }
+                shop.save()
+                .then((shop) => {
+                    shops.findById(shop._id)
+                    .then((shop) => {
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(shop);  
+                    })              
+                }, (err) => next(err));
+            }
+            else {
+                err = new Error('You cannot update this glass as you are not the author of it!');
+                err.status = 403;
+                return next(err);
+            }
+        }
+        else if (shop == null) {
+            err = new Error('shop ' + req.params.shopId + ' not found');
+            err.status = 404;
+            return next(err);
+        }
+        else {
+            err = new Error('glass ' + req.params.glassId + ' not found');
+            err.status = 404;
+            return next(err);            
+        }
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+.delete((req, res, next) => {
+    shops.findById(req.params.shopId)
+    .then((shop) => {
+        if (shop != null && shop.glass.id(req.params.glassId) != null) {
+            var req_glass_id = shop.glass.id(req.params.glassId);
+            if (req_glass_id) {
+                shop.glass.id(req.params.glassId).remove();
+                shop.save()
+                .then((shop) => {
+                    shops.findById(shop._id)
+                    .then((shop) => {
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(shop);  
+                    })               
+                }, (err) => next(err));
+            }
+            else {
+                err = new Error('You cannot delete this glass as you are not the author of it!');
+                err.status = 403;
+                return next(err);
+            }
+        }
+        else if (shop == null) {
+            err = new Error('shop ' + req.params.shopId + ' not found');
+            err.status = 404;
+            return next(err);
+        }
+        else {
+            err = new Error('glass ' + req.params.glassId + ' not found');
+            err.status = 404;
+            return next(err);            
+        }
+    }, (err) => next(err))
+    .catch((err) => next(err));
+});
+
+
+
 module.exports = shopRouter;
