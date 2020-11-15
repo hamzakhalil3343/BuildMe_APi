@@ -80,7 +80,7 @@ var tileSchema = new Schema({
         type:String,
         default:''
     },
-    iron_type:{
+    tile_type:{
         type:String,
         default:''
     },
@@ -150,7 +150,7 @@ var es_Schema = new Schema({
         type:String,
         default:''
     },
-    Electric_type:{
+    electric_type:{
         type:String,
         default:''
     },
@@ -194,7 +194,7 @@ const shopSchema = new Schema({
     iron: [ironSchema],
     glass: [glassSchema],
     wood: [woodSchema],
-    sanitay:[sanitarySchema],
+    sanitary:[sanitarySchema],
     tiles:[tileSchema],
     paints:[paintsSchema],
     electricStores:[es_Schema],
