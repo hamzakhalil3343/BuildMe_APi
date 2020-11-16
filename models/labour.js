@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 
  labourSchema = new Schema({
+     labour_id:{
+         type:String,
+         required:false
+     },
     labour_Type: {
         type: String,
         required: false

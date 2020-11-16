@@ -7,6 +7,10 @@ var User = new Schema({
     admin:   {
         type: Boolean,
         default: false
+    },
+    labour:{
+        type: Boolean,
+        default: true
     }
 });
 

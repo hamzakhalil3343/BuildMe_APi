@@ -3,6 +3,7 @@ var router = express.Router();
 const bodyParser = require('body-parser');
 var passport=require('passport');
 var User = require('../models/user');
+const labours = require('../models/labour');
 var authenticate = require('../authenticate');
 
 
@@ -14,6 +15,7 @@ router.get('/', function(req, res, next) {
 router.use(bodyParser.json());
 
 router.post('/signup', (req, res, next) => {
+
   User.register(new User({username: req.body.username}), 
     req.body.password, (err, user) => {
     if(err) {
@@ -23,9 +25,23 @@ router.post('/signup', (req, res, next) => {
     }
     else {
       passport.authenticate('local')(req, res, () => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({success: true, status: 'Registration Successful!'});
+        if (req.user.labour===true){
+          labours.create({labour_id:req.user._id})
+          .then((labour) => {
+              // labour._id=User._id;
+              console.log('labour  Created ', labour);
+              res.statusCode = 200;
+              res.setHeader('Content-Type', 'application/json');
+              res.json(labour);
+          }, (err) => next(err))
+          .catch((err) => next(err));
+        }
+        else{
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({success: true, status: 'Registration Successful!'});
+        }
+       
       });
     }
   });
