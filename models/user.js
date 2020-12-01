@@ -8,9 +8,9 @@ var User = new Schema({
         type: Boolean,
         default: false
     },
-    labour:{
-        type: Boolean,
-        default: true
+    user_type:{
+        type: String,
+        default:''
     }
 });
 

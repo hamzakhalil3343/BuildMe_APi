@@ -187,6 +187,18 @@ const shopSchema = new Schema({
         required: false,
         unique: true
     },
+    honour_firstname:{
+        type: String,
+        required: false
+    },
+    honour_lastname:{
+        type: String,
+        required: false
+    },
+    password:{
+        type: String,
+        required: false
+    },
     isAuthenticated: {
         type: Boolean
         

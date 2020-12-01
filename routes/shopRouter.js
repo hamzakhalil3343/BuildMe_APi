@@ -4,6 +4,47 @@ const bodyParser = require('body-parser');
 const shopRouter = express.Router();
 const shops = require('../models/shop');
 shopRouter.use(bodyParser.json());
+//shop login 
+shopRouter.post('/ShopLogin',  async (req, res) => {
+    const body = req.body;
+    console.log('req.body', body);
+
+    const shop_name = body.shop_name;
+
+    // lets check if shop_name exists
+
+    const result = await shops.findOne({"shop_name":  shop_name});
+    console.log('result is',result);
+    if(result===null) // this means result is null
+    { console.log('User Not Exists')
+      res.status(401).send({
+        Error: 'This user doesnot exists. Please signup first'
+       });
+    }
+    else{
+      // shop_name did exist
+      // so lets match password
+
+      if(body.password === result.password){
+
+        // great, allow this user access
+
+        console.log('match');
+
+        res.send({message: 'Successfully Logged in'});
+      }
+
+        else{
+
+          console.log('password doesnot match');
+
+          res.status(401).send({message: 'Wrong shop_name or Password'});
+        }
+
+
+    }
+
+  });
 //Route of the shops
 shopRouter.route('/')
     .all((req, res, next) => {

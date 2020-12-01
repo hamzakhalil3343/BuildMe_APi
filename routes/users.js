@@ -25,7 +25,7 @@ router.post('/signup', (req, res, next) => {
     }
     else {
       passport.authenticate('local')(req, res, () => {
-        if (req.user.labour===true){
+        if (req.user.user_type === "labour"){
           labours.create({labour_id:req.user._id})
           .then((labour) => {
               // labour._id=User._id;
