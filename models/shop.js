@@ -5,6 +5,10 @@ const Currency = mongoose.Types.Currency;
 
 //Iron schema
 var ironSchema = new Schema({
+    name: {
+        type: String,
+        default: ''
+    },
     quantitie: {
         type: Number,
         default: 0
@@ -14,7 +18,7 @@ var ironSchema = new Schema({
         default:''
     },
     price: {
-        type: Currency,
+        type: Number,
         min: 0
     }
     
@@ -24,6 +28,10 @@ var ironSchema = new Schema({
 
 //Glass schema
 var glassSchema = new Schema({
+    name: {
+        type: String,
+        default: ''
+    },
     quantitie: {
         type: Number,
         default: 0
@@ -37,7 +45,7 @@ var glassSchema = new Schema({
         default:''
     },
     price: {
-        type: Currency,
+        type: Number,
         min: 0
     }
     
@@ -48,6 +56,10 @@ var glassSchema = new Schema({
 
 //Wood  schema
 var woodSchema = new Schema({
+    name: {
+        type: String,
+        default: ''
+    },
     quantitie: {
         type: Number,
         default: 0
@@ -61,7 +73,7 @@ var woodSchema = new Schema({
         default:''
     },
     price: {
-        type: Currency,
+        type: Number,
         min: 0
     }
     
@@ -72,6 +84,10 @@ var woodSchema = new Schema({
 
 //Tiles  schema
 var tileSchema = new Schema({
+    name: {
+        type: String,
+        default: ''
+    },
     quantitie: {
         type: Number,
         default: 0
@@ -85,7 +101,7 @@ var tileSchema = new Schema({
         default:''
     },
     price: {
-        type: Currency,
+        type: Number,
         min: 0
     }
     
@@ -96,11 +112,15 @@ var tileSchema = new Schema({
 
 //sanitary  schema
 var sanitarySchema = new Schema({
+    name: {
+        type: String,
+        default: ''
+    },
     quantitie: {
         type: Number,
         default: 0
     },
-    name:{
+    dimension:{
         type:String,
         default:''
     },
@@ -109,7 +129,7 @@ var sanitarySchema = new Schema({
         default:''
     },
     price: {
-        type: Currency,
+        type: Number,
         min: 0
     }
     
@@ -132,7 +152,7 @@ var paintsSchema = new Schema({
         default:''
     },
     price: {
-        type: Currency,
+        type: Number,
         min: 0
     }
     
@@ -155,7 +175,7 @@ var es_Schema = new Schema({
         default:''
     },
     price: {
-        type: Currency,
+        type: Number,
         min: 0
     }
     

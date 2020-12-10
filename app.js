@@ -11,11 +11,11 @@ const cors=require('cors')
 const url = config.mongoUrl;
 const mongoose = require('mongoose');
 
-
-const connect = mongoose.connect(url);
+mongoose.set('useCreateIndex', true);
+const connect = mongoose.connect(url,{ useNewUrlParser: true ,useUnifiedTopology:true});
 
 connect.then(() => {
-    console.log("Connected correctly to server");
+    console.log("\n\n"+"                                                                            "+"Connected correctly to server");
 }, (err) => { console.log(err); });
 var app = express();
 //passport code 
