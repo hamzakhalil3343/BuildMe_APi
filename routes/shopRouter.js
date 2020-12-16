@@ -239,8 +239,11 @@ shopRouter.route('/:shopId/iron/:ironId')
                         if (req.body.quantitie) {
                             shop.iron.id(req.params.ironId).quantitie = req.body.quantitie;
                         }
-                        if (req.body.iron) {
-                            shop.iron.id(req.params.ironId).iron = req.body.iron;
+                        if (req.body.name) {
+                            shop.iron.id(req.params.ironId).name = req.body.name;
+                        }
+                        if (req.body.iron_type) {
+                            shop.iron.id(req.params.ironId).iron_type = req.body.iron_type;
                         }
                         shop.save()
                             .then((shop) => {
