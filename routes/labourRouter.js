@@ -21,16 +21,16 @@ labourRouter.route('/')
             .catch((err) => next(err));
     })
     .post((req, res, next) => {
-        res.statusCode = 403;
-        res.end('POST  operation not supported on /laboures From here !');
-        // labours.create(req.body)
-        //     .then((labour) => {
-        //         console.log('labour  Created ', labour);
-        //         res.statusCode = 200;
-        //         res.setHeader('Content-Type', 'application/json');
-        //         res.json(labour);
-        //     }, (err) => next(err))
-        //     .catch((err) => next(err));
+        // res.statusCode = 403;
+        // res.end('POST  operation not supported on /laboures From here !');
+        labours.create(req.body)
+            .then((labour) => {
+                console.log('labour  Created ', labour);
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(labour);
+            }, (err) => next(err))
+            .catch((err) => next(err));
     })
     .put((req, res, next) => {
         res.statusCode = 403;
@@ -48,11 +48,15 @@ labourRouter.route('/')
 //Route to labour ID 
 labourRouter.route('/:labourId')
     .get((req, res, next) => {
-        labours.findById(req.params.labourId)
+        labours.find({labour_id:req.params.labourId})
             .then((labour) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.json(labour);
+                
+                labour.forEach(element => { 
+                    res.json(element);
+                  }); 
+                
             }, (err) => next(err))
             .catch((err) => next(err));
     })

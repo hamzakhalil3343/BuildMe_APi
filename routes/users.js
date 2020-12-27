@@ -15,8 +15,8 @@ router.get('/', function(req, res, next) {
 router.use(bodyParser.json());
 
 router.post('/signup', (req, res, next) => {
-
-  User.register(new User({username: req.body.username}), 
+   console.log('user is ',req.body);
+  User.register(new User({username: req.body.username,firstname:req.body.firstname,lastname:req.body.lastname,user_type:req.body.user_type}), 
     req.body.password, (err, user) => {
     if(err) {
       res.statusCode = 500;
@@ -25,7 +25,8 @@ router.post('/signup', (req, res, next) => {
     }
     else {
       passport.authenticate('local')(req, res, () => {
-        if (req.user.user_type === "labour"){
+        console.log('req.user_type',req.body.user_type);
+        if (req.body.user_type === "labour"){
           labours.create({labour_id:req.user._id})
           .then((labour) => {
               // labour._id=User._id;
@@ -51,7 +52,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
   var token = authenticate.getToken({_id: req.user._id});
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.json({success: true, token: token, status: 'You are successfully logged in!'});
+  res.json({success: true,id:req.user._id, token: token, status: 'You are successfully logged in!'});
 });
 
 router.get('/logout', (req, res) => {
