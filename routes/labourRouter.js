@@ -48,15 +48,15 @@ labourRouter.route('/')
 //Route to labour ID 
 labourRouter.route('/:labourId')
     .get((req, res, next) => {
-        labours.find({labour_id:req.params.labourId})
+        labours.find({ labour_id: req.params.labourId })
             .then((labour) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                
-                labour.forEach(element => { 
+
+                labour.forEach(element => {
                     res.json(element);
-                  }); 
-                
+                });
+
             }, (err) => next(err))
             .catch((err) => next(err));
     })
@@ -65,15 +65,22 @@ labourRouter.route('/:labourId')
         res.end('POST operation not supported on /labours/' + req.params.labourId);
     })
     .put((req, res, next) => {
-        labours.findByIdAndUpdate(req.params.labourId, {
-            $set: req.body
-        }, { new: true })
-            .then((labour) => {
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(labour);
-            }, (err) => next(err))
-            .catch((err) => next(err));
+        var query = { 'labour_id': req.params.labourId };
+        
+
+        labours.findOneAndUpdate(query, {"hrs_worked":req.body.hrs_worked,"labour_Type":req.body.labour_type,"labour_rate":req.body.labour_rate,TeamPart:req.body.TeamPart}, { upsert: true }, function (err, doc) {
+            if (err) {console.log(err);return res.send(500, { error: err });}
+            return res.send('Succesfully saved.');
+        });
+        // labours.findByIdAndUpdate(req.params.labourId, {
+        //     $set: req.body
+        // }, { new: true })
+        //     .then((labour) => {
+        //         res.statusCode = 200;
+        //         res.setHeader('Content-Type', 'application/json');
+        //         res.json(labour);
+        //     }, (err) => next(err))
+        //     .catch((err) => next(err));
     })
     .delete((req, res, next) => {
         labours.findByIdAndRemove(req.params.labourId)
@@ -85,4 +92,4 @@ labourRouter.route('/:labourId')
             .catch((err) => next(err));
     });
 
-    module.exports = labourRouter;
+module.exports = labourRouter;

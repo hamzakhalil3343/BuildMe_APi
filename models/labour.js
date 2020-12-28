@@ -29,7 +29,8 @@ var reviewSchema = new Schema({
     },
     hrs_worked: {
         type: Number,
-        required: false
+        required: false,
+        default:0
     },
     labour_rate:{
         type: String,
