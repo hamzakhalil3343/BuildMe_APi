@@ -22,6 +22,13 @@ var reviewSchema = new Schema({
          required:true,
          default:''
      },
+     
+    profile_name:{
+        type: String,
+        required : false,
+        default:''
+
+    },
     labour_Type: {
         type: String,
         required: false,

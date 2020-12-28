@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 var passport=require('passport');
 var User = require('../models/user');
 const labours = require('../models/labour');
+const contractors = require('../models/contractor');
 var authenticate = require('../authenticate');
 
 
@@ -34,6 +35,17 @@ router.post('/signup', (req, res, next) => {
               res.statusCode = 200;
               res.setHeader('Content-Type', 'application/json');
               res.json(labour);
+          }, (err) => next(err))
+          .catch((err) => next(err));
+        }
+        else if(req.body.user_type === "contractor"){
+          contractors.create({contractor_id:req.user._id})
+          .then((contractor) => {
+              // labour._id=User._id;
+              console.log('contractor  Created ', contractor);
+              res.statusCode = 200;
+              res.setHeader('Content-Type', 'application/json');
+              res.json(contractor);
           }, (err) => next(err))
           .catch((err) => next(err));
         }
