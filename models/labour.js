@@ -50,6 +50,12 @@ var reviewSchema = new Schema({
         default:''
 
     },
+    TeamDetails:{
+        type: String,
+        required : false,
+        default:''
+
+    },
     Rating:{
         type: Number,
         required : false,
