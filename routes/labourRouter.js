@@ -81,6 +81,39 @@ labourRouter.route('/:labourId')
                 return res.send('Succesfully saved.');
             });
         }
+        if (req.body.comment != undefined ){
+            labours.findById(req.params.labourId)
+            .then((labour) => {
+                if (labour != null) {
+                    // console.log('req of user  id ',req.user._id);
+                    // req.body.author = req.user._id;
+                    console.log('req of body', req.body);
+                    console.log('Labour is ', labour);
+
+                     labour.Reviews.push(req.body);
+
+                    labour.save()
+                        .then((labour) => {
+
+                            labour.update({"Rating":(req.body.rating+labour.Rating)/2}, { upsert: true }, function (err, doc) {
+                                if (err) {console.log(err);return res.send(500, { error: err });}
+                                return res.send('Succesfully saved.');
+                            });
+                                    // res.statusCode = 200;
+                                    // res.setHeader('Content-Type', 'application/json');
+                                    // res.json(labour);
+                                
+                        }, (err) => next(err));
+                }
+                else {
+                    err = new Error('Labour ID  ' + query + ' not found');
+                    err.status = 404;
+                    return next(err);
+                }
+            }, (err) => next(err))
+            .catch((err) => next(err));
+          
+        }
         
         // labours.findByIdAndUpdate(req.params.labourId, {
         //     $set: req.body

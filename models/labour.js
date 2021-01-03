@@ -59,6 +59,7 @@ var reviewSchema = new Schema({
     Rating:{
         type: Number,
         required : false,
+        default: 0
         
 
     },
