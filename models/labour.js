@@ -7,7 +7,7 @@ var reviewSchema = new Schema({
     },
     comment: {
         type: String,
-        default: 0
+        default: ''
     }
     
    

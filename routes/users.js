@@ -5,6 +5,8 @@ var passport=require('passport');
 var User = require('../models/user');
 const labours = require('../models/labour');
 const contractors = require('../models/contractor');
+const customers = require('../models/customer');
+
 var authenticate = require('../authenticate');
 
 
@@ -46,6 +48,17 @@ router.post('/signup', (req, res, next) => {
               res.statusCode = 200;
               res.setHeader('Content-Type', 'application/json');
               res.json(contractor);
+          }, (err) => next(err))
+          .catch((err) => next(err));
+        }
+        else if(req.body.user_type === "customer"){
+          customers.create({customer_id:req.user._id,profile_name:req.user.firstname})
+          .then((customer) => {
+              // labour._id=User._id;
+              console.log('customer  Created ', customer);
+              res.statusCode = 200;
+              res.setHeader('Content-Type', 'application/json');
+              res.json(customer);
           }, (err) => next(err))
           .catch((err) => next(err));
         }
