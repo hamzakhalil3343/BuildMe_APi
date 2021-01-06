@@ -219,6 +219,11 @@ const shopSchema = new Schema({
         type: String,
         required: false
     },
+    rating:{
+        type: Number,
+        required: false,
+        default:0
+    },
     isAuthenticated: {
         type: Boolean
         
