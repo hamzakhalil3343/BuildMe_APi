@@ -6,6 +6,7 @@ var User = require('../models/user');
 const labours = require('../models/labour');
 const contractors = require('../models/contractor');
 const customers = require('../models/customer');
+const interiorDesigners = require('../models/interiorDesigner');
 
 var authenticate = require('../authenticate');
 
@@ -59,6 +60,17 @@ router.post('/signup', (req, res, next) => {
               res.statusCode = 200;
               res.setHeader('Content-Type', 'application/json');
               res.json(customer);
+          }, (err) => next(err))
+          .catch((err) => next(err));
+        }
+        else if(req.body.user_type === "interiorDesigner"){
+          interiorDesigners.create({interiorDesigner_id:req.user._id,profile_name:req.user.firstname})
+          .then((interiorDesigner) => {
+              // labour._id=User._id;
+              console.log('interiorDesigner  Created ', interiorDesigner);
+              res.statusCode = 200;
+              res.setHeader('Content-Type', 'application/json');
+              res.json(interiorDesigner);
           }, (err) => next(err))
           .catch((err) => next(err));
         }
