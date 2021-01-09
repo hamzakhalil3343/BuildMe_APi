@@ -820,8 +820,8 @@ shopRouter.route('/:shopId/sanitary/:sanitaryId')
                         if (req.body.quantitie) {
                             shop.sanitary.id(req.params.sanitaryId).quantitie = req.body.quantitie;
                         }
-                        if (req.body.sanitary) {
-                            shop.sanitary.id(req.params.sanitaryId).sanitary = req.body.sanitary;
+                        if (req.body.type) {
+                            shop.sanitary.id(req.params.sanitaryId).type = req.body.type;
                         }
                         shop.save()
                             .then((shop) => {

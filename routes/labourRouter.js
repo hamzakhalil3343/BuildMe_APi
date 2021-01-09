@@ -61,16 +61,19 @@ labourRouter.route('/:labourId')
             .catch((err) => next(err));
     })
     .post((req, res, next) => {
-        res.statusCode = 403;
-        res.end('POST operation not supported on /labours/' + req.params.labourId);
+        // res.statusCode = 403;
+        // res.end('POST operation not supported on /labours/' + req.params.labourId);
+        //console.log(req.body);
+        //var query = { 'labour_id': req.params.labourId };
+        
     })
     .put((req, res, next) => {
         var query = { 'labour_id': req.params.labourId };
         
-        if (req.body.profile_name != undefined ){
+        if (req.body.hrs_worked != undefined && req.body.labour_rate !== undefined){
             labours.findOneAndUpdate(query, {"profile_name":req.body.profile_name,"hrs_worked":req.body.hrs_worked,"labour_Type":req.body.labour_type,"labour_rate":req.body.labour_rate}, { upsert: true }, function (err, doc) {
                 if (err) {console.log(err);return res.send(500, { error: err });}
-                return res.send('Succesfully .');
+                return res.send(200,{message:"Success"});
             });
         }
         
