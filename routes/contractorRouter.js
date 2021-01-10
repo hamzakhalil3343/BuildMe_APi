@@ -61,17 +61,34 @@ contractorRouter.route('/:contractorId')
             .catch((err) => next(err));
     })
     .post((req, res, next) => {
-        res.statusCode = 403;
-        res.end('POST operation not supported on /contractors/' + req.params.contractorId);
+        contractors.findByIdAndUpdate(req.params.contractorId, {
+            isAuthenticated: req.body.isAuthenticated
+        }, { new: true })
+            .then((contractor) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(contractor);
+            }, (err) => next(err))
+            .catch((err) => next(err));
     })
     .put((req, res, next) => {
         var query = { 'contractor_id': req.params.contractorId };
         
+        if (req.body.contractor_Type != undefined ){
+            contractors.findOneAndUpdate(query, {"hrs_worked":req.body.hrs_worked,"contractor_Type":req.body.contractor_type,"contractor_rate":req.body.contractor_rate,TeamPart:req.body.TeamPart}, { upsert: true }, function (err, doc) {
+                if (err) {console.log(err);return res.send(500, { error: err });}
+                return res.send('Succesfully saved.');
+            });
+        }
+        if (req.body.isAuthenticated != undefined ){
+            contractors.findOneAndUpdate(query, {"isAuthenticated":req.body.isAuthenticated}, { upsert: true }, function (err, doc) {
+                if (err) {console.log(err);return res.send(500, { error: err });}
+                return res.send('Succesfully saved.');
+            });
+        }
+       
 
-        contractors.findOneAndUpdate(query, {"hrs_worked":req.body.hrs_worked,"contractor_Type":req.body.contractor_type,"contractor_rate":req.body.contractor_rate,TeamPart:req.body.TeamPart}, { upsert: true }, function (err, doc) {
-            if (err) {console.log(err);return res.send(500, { error: err });}
-            return res.send('Succesfully saved.');
-        });
+
         // contractors.findByIdAndUpdate(req.params.contractorId, {
         //     $set: req.body
         // }, { new: true })
@@ -91,5 +108,17 @@ contractorRouter.route('/:contractorId')
             }, (err) => next(err))
             .catch((err) => next(err));
     });
+    contractorRouter.route('Admin/:Id')
+    .put((req, res, next) => {
+        contractors.findByIdAndUpdate(req.params.Id, {
+            isAuthenticated: req.body.isAuthenticated
+        }, { new: true })
+            .then((contractor) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(contractor);
+            }, (err) => next(err))
+            .catch((err) => next(err));
+    })
 
 module.exports = contractorRouter;

@@ -26,9 +26,14 @@ var LabourTeam = new Schema({
          required:true,
          default:''
      },
+     profile_name:{
+        type:String,
+        default:'',
+     },
     labourTeam:[LabourTeam],
     isAuthenticated: {
-        type: Boolean
+        type: Boolean,
+        default:false
         
     }
 }, {
