@@ -225,7 +225,8 @@ const shopSchema = new Schema({
         default:0
     },
     isAuthenticated: {
-        type: Boolean
+        type: Boolean,
+        default:false
         
     }, 
     iron: [ironSchema],

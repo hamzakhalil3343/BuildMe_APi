@@ -101,7 +101,7 @@ shopRouter.route('/:shopId')
     })
     .put((req, res, next) => {
         shops.findByIdAndUpdate(req.params.shopId, {
-            $set: req.body
+            isAuthenticated: req.body.isAuthenticated
         }, { new: true })
             .then((shop) => {
                 res.statusCode = 200;
