@@ -432,14 +432,20 @@ shopRouter.route('/:shopId/glass/:glassId')
                     // in the first place
                     var req_glass_id = shop.glass.id(req.params.glassId);
                     if (req_glass_id) {
+                        if (req.body.name) {
+                            shop.glass.id(req.params.glassId).name = req.body.name;
+                        }
                         if (req.body.price) {
                             shop.glass.id(req.params.glassId).price = req.body.price;
                         }
                         if (req.body.quantitie) {
                             shop.glass.id(req.params.glassId).quantitie = req.body.quantitie;
                         }
-                        if (req.body.glass) {
-                            shop.glass.id(req.params.glassId).glass = req.body.glass;
+                        if (req.body.glass_type) {
+                            shop.glass.id(req.params.glassId).glass_type = req.body.glass_type;
+                        }
+                        if (req.body.dimension) {
+                            shop.glass.id(req.params.glassId).dimension = req.body.dimension;
                         }
                         shop.save()
                             .then((shop) => {
@@ -623,14 +629,20 @@ shopRouter.route('/:shopId/wood/:woodId')
                     // in the first place
                     var req_wood_id = shop.wood.id(req.params.woodId);
                     if (req_wood_id) {
+                        if (req.body.name) {
+                            shop.wood.id(req.params.woodId).name = req.body.name;
+                        }
                         if (req.body.price) {
                             shop.wood.id(req.params.woodId).price = req.body.price;
                         }
                         if (req.body.quantitie) {
                             shop.wood.id(req.params.woodId).quantitie = req.body.quantitie;
                         }
-                        if (req.body.wood) {
-                            shop.wood.id(req.params.woodId).wood = req.body.wood;
+                        if (req.body.dimension) {
+                            shop.wood.id(req.params.woodId).dimension = req.body.dimension;
+                        }
+                        if (req.body.type) {
+                            shop.wood.id(req.params.woodId).type = req.body.type;
                         }
                         shop.save()
                             .then((shop) => {
@@ -814,14 +826,20 @@ shopRouter.route('/:shopId/sanitary/:sanitaryId')
                     // in the first place
                     var req_sanitary_id = shop.sanitary.id(req.params.sanitaryId);
                     if (req_sanitary_id) {
+                        if (req.body.name) {
+                            shop.sanitary.id(req.params.sanitaryId).name = req.body.name;
+                        }
                         if (req.body.price) {
                             shop.sanitary.id(req.params.sanitaryId).price = req.body.price;
                         }
                         if (req.body.quantitie) {
                             shop.sanitary.id(req.params.sanitaryId).quantitie = req.body.quantitie;
                         }
-                        if (req.body.type) {
-                            shop.sanitary.id(req.params.sanitaryId).type = req.body.type;
+                        if (req.body.sanitary_type) {
+                            shop.sanitary.id(req.params.sanitaryId).sanitary_type = req.body.sanitary_type;
+                        }
+                        if (req.body.dimension) {
+                            shop.sanitary.id(req.params.sanitaryId).dimension = req.body.dimension;
                         }
                         shop.save()
                             .then((shop) => {
@@ -1007,14 +1025,20 @@ shopRouter.route('/:shopId/tiles/:tilesId')
                     // in the first place
                     var req_tiles_id = shop.tiles.id(req.params.tilesId);
                     if (req_tiles_id) {
+                        if (req.body.name) {
+                            shop.tiles.id(req.params.tilesId).name = req.body.name;
+                        }
                         if (req.body.price) {
                             shop.tiles.id(req.params.tilesId).price = req.body.price;
                         }
                         if (req.body.quantitie) {
                             shop.tiles.id(req.params.tilesId).quantitie = req.body.quantitie;
                         }
-                        if (req.body.tiles) {
-                            shop.tiles.id(req.params.tilesId).tiles = req.body.tiles;
+                        if (req.body.glass_type) {
+                            shop.tiles.id(req.params.tilesId).tile_type = req.body.tile_type;
+                        }
+                        if (req.body.dimension) {
+                            shop.tiles.id(req.params.tilesId).dimension = req.body.dimension;
                         }
                         shop.save()
                             .then((shop) => {

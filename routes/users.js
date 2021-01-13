@@ -42,7 +42,7 @@ router.post('/signup', (req, res, next) => {
           .catch((err) => next(err));
         }
         else if(req.body.user_type === "contractor"){
-          contractors.create({contractor_id:req.user._id})
+          contractors.create({contractor_id:req.user._id,profile_name:req.user.firstname})
           .then((contractor) => {
               // labour._id=User._id;
               console.log('contractor  Created ', contractor);
