@@ -174,6 +174,10 @@ var paintsSchema = new Schema({
         type:String,
         default:''
     },
+    color:{
+        type:String,
+        default:''
+    },
     paint_type:{
         type:String,
         default:''

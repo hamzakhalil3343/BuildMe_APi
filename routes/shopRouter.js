@@ -1256,6 +1256,9 @@ shopRouter.route('/:shopId/paints/:paintsId')
                         if (req.body.paint_type) {
                             shop.paints.id(req.params.paintsId).paint_type = req.body.paint_type;
                         }
+                        if (req.body.color) {
+                            shop.paints.id(req.params.paintsId).color = req.body.color;
+                        }
                       
                         shop.save()
                             .then((shop) => {
