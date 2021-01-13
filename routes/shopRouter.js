@@ -647,8 +647,8 @@ shopRouter.route('/:shopId/wood/:woodId')
                         if (req.body.dimension) {
                             shop.wood.id(req.params.woodId).dimension = req.body.dimension;
                         }
-                        if (req.body.type) {
-                            shop.wood.id(req.params.woodId).type = req.body.type;
+                        if (req.body.wood_type) {
+                            shop.wood.id(req.params.woodId).wood_type = req.body.wood_type;
                         }
                         if (req.body.used_in) {
                             shop.wood.id(req.params.woodId).used_in = req.body.used_in;
