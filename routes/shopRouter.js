@@ -245,6 +245,12 @@ shopRouter.route('/:shopId/iron/:ironId')
                         if (req.body.iron_type) {
                             shop.iron.id(req.params.ironId).iron_type = req.body.iron_type;
                         }
+                        if (req.body.percentage_material) {
+                            shop.iron.id(req.params.ironId).percentage_material = req.body.percentage_material;
+                        }
+                        if (req.body.used_in) {
+                            shop.iron.id(req.params.ironId).used_in = req.body.used_in;
+                        }
                         shop.save()
                             .then((shop) => {
                                 shops.findById(shop._id)
@@ -643,6 +649,9 @@ shopRouter.route('/:shopId/wood/:woodId')
                         }
                         if (req.body.type) {
                             shop.wood.id(req.params.woodId).type = req.body.type;
+                        }
+                        if (req.body.used_in) {
+                            shop.wood.id(req.params.woodId).used_in = req.body.used_in;
                         }
                         shop.save()
                             .then((shop) => {

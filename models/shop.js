@@ -20,6 +20,14 @@ var ironSchema = new Schema({
     price: {
         type: Number,
         min: 0
+    },
+    percentage_material:{
+        type:String,
+        default:''
+    },
+    used_in:{
+        type:String,
+        default:''
     }
     
 }, {
@@ -75,6 +83,9 @@ var woodSchema = new Schema({
     price: {
         type: Number,
         min: 0
+    },used_in:{
+        type:String,
+        default:''
     }
     
 }, {
