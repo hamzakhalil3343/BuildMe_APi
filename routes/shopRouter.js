@@ -453,6 +453,12 @@ shopRouter.route('/:shopId/glass/:glassId')
                         if (req.body.dimension) {
                             shop.glass.id(req.params.glassId).dimension = req.body.dimension;
                         }
+                        if (req.body.u_value) {
+                            shop.glass.id(req.params.glassId).u_value = req.body.u_value;
+                        }
+                        if (req.body.used_in) {
+                            shop.glass.id(req.params.glassId).used_in = req.body.used_in;
+                        }
                         shop.save()
                             .then((shop) => {
                                 shops.findById(shop._id)
@@ -847,8 +853,8 @@ shopRouter.route('/:shopId/sanitary/:sanitaryId')
                         if (req.body.sanitary_type) {
                             shop.sanitary.id(req.params.sanitaryId).sanitary_type = req.body.sanitary_type;
                         }
-                        if (req.body.dimension) {
-                            shop.sanitary.id(req.params.sanitaryId).dimension = req.body.dimension;
+                        if (req.body.details) {
+                            shop.sanitary.id(req.params.sanitaryId).details = req.body.details;
                         }
                         shop.save()
                             .then((shop) => {
@@ -1043,8 +1049,14 @@ shopRouter.route('/:shopId/tiles/:tilesId')
                         if (req.body.quantitie) {
                             shop.tiles.id(req.params.tilesId).quantitie = req.body.quantitie;
                         }
-                        if (req.body.glass_type) {
+                        if (req.body.tile_type) {
                             shop.tiles.id(req.params.tilesId).tile_type = req.body.tile_type;
+                        }
+                        if (req.body.used_in) {
+                            shop.tiles.id(req.params.tilesId).used_in = req.body.used_in;
+                        }
+                        if (req.body.pattern_name) {
+                            shop.tiles.id(req.params.tilesId).pattern_name = req.body.pattern_name;
                         }
                         if (req.body.dimension) {
                             shop.tiles.id(req.params.tilesId).dimension = req.body.dimension;

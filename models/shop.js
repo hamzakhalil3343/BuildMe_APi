@@ -55,7 +55,15 @@ var glassSchema = new Schema({
     price: {
         type: Number,
         min: 0
-    }
+    },
+    u_value:{
+        type:String,
+        default:''
+    },
+    used_in:{
+        type:String,
+        default:''
+    },
     
 }, {
     timestamps: true
@@ -111,6 +119,14 @@ var tileSchema = new Schema({
         type:String,
         default:''
     },
+    pattern_name:{
+        type:String,
+        default:''
+    },
+    used_in:{
+        type:String,
+        default:''
+    },
     price: {
         type: Number,
         min: 0
@@ -131,7 +147,7 @@ var sanitarySchema = new Schema({
         type: Number,
         default: 0
     },
-    dimension:{
+    details:{
         type:String,
         default:''
     },
