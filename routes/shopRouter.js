@@ -1223,15 +1223,19 @@ shopRouter.route('/:shopId/paints/:paintsId')
                     // in the first place
                     var req_paints_id = shop.paints.id(req.params.paintsId);
                     if (req_paints_id) {
+                        if (req.body.name) {
+                            shop.paints.id(req.params.paintsId).name = req.body.name;
+                        }
                         if (req.body.price) {
                             shop.paints.id(req.params.paintsId).price = req.body.price;
                         }
                         if (req.body.quantitie) {
                             shop.paints.id(req.params.paintsId).quantitie = req.body.quantitie;
                         }
-                        if (req.body.paints) {
-                            shop.paints.id(req.params.paintsId).paints = req.body.paints;
+                        if (req.body.paint_type) {
+                            shop.paints.id(req.params.paintsId).paint_type = req.body.paint_type;
                         }
+                      
                         shop.save()
                             .then((shop) => {
                                 shops.findById(shop._id)
@@ -1421,8 +1425,11 @@ shopRouter.route('/:shopId/electricStores/:electricStoresId')
                         if (req.body.quantitie) {
                             shop.electricStores.id(req.params.electricStoresId).quantitie = req.body.quantitie;
                         }
-                        if (req.body.electricStores) {
-                            shop.electricStores.id(req.params.electricStoresId).electricStores = req.body.electricStores;
+                        if (req.body.electric_type) {
+                            shop.electricStores.id(req.params.electricStoresId).electric_type = req.body.electric_type;
+                        }
+                        if (req.body.name) {
+                            shop.electricStores.id(req.params.electricStoresId).name = req.body.name;
                         }
                         shop.save()
                             .then((shop) => {
