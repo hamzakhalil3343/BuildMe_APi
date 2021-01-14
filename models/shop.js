@@ -205,6 +205,14 @@ var es_Schema = new Schema({
         type:String,
         default:''
     },
+    material_details:{
+        type:String,
+        default:''
+    },
+    used_in:{
+        type:String,
+        default:''
+    },
     price: {
         type: Number,
         min: 0
@@ -244,6 +252,15 @@ const shopSchema = new Schema({
     },
     honour_lastname:{
         type: String,
+        required: false
+    },
+    phone_no:{
+        type: Number,
+        required: false
+    },
+    address:{
+        type: String,
+        default:'',
         required: false
     },
     password:{

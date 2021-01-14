@@ -15,6 +15,10 @@ var User = new Schema({
     user_type:{
         type: String,
         default:''
+    }, 
+    phone_no:{
+        type: Number,
+        required: false
     }
 });
 

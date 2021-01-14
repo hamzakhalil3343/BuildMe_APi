@@ -1452,6 +1452,12 @@ shopRouter.route('/:shopId/electricStores/:electricStoresId')
                         if (req.body.electric_type) {
                             shop.electricStores.id(req.params.electricStoresId).electric_type = req.body.electric_type;
                         }
+                        if (req.body.material_details) {
+                            shop.electricStores.id(req.params.electricStoresId).material_details = req.body.material_details;
+                        }
+                        if (req.body.used_in) {
+                            shop.electricStores.id(req.params.electricStoresId).used_in = req.body.used_in;
+                        }
                         if (req.body.name) {
                             shop.electricStores.id(req.params.electricStoresId).name = req.body.name;
                         }

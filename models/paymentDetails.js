@@ -23,6 +23,10 @@ const Schema = mongoose.Schema;
     amount:{
         type:Number,
         default:0,
+     },
+     verification:{
+         type:Boolean,
+         default:false
      }
 }, {
     timestamps: true
