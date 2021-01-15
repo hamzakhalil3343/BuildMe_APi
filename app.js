@@ -31,6 +31,7 @@ var customerRouter=require('./routes/customerRouter');
 var interiorDesignerRouter=require('./routes/interiorDesigner');
 var reviewRouter=require('./routes/reviewRouter');
 var paymentRouter=require('./routes/paymentRouter');
+var searchRouter=require('./routes/searchRouter');
 
 
 
@@ -57,6 +58,7 @@ app.use('/customers', customerRouter);
 app.use('/interiorDesigner', interiorDesignerRouter);
 app.use('/reviews', reviewRouter);
 app.use('/payment', paymentRouter);
+app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
