@@ -8,6 +8,15 @@ var contractSchema = new Schema({
     details: {
         type: String,
         default: ''
+    },
+    accepted_by:{
+        type: String,
+        required: false
+    },
+    Estimation:{
+        type: String,
+        default: '',
+        
     }
     
    
