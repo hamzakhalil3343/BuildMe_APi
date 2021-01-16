@@ -250,23 +250,24 @@ customerRouter.route('/:customerId')
         .put((req, res, next) => {
             customers.findById(req.params.customerId)
                 .then((customer) => {
-                    if (customer != null && customer.contract.id(req.params.contractId) != null) {
+                    if (customer != null && customer.contracts.id(req.params.contractId) != null) {
                         // check if the user updating the contract is the same one who posted it
                         // in the first place
-                        var req_contract_id = customer.contract.id(req.params.contractId);
+                        var req_contract_id = customer.contracts.id(req.params.contractId);
                         if (req_contract_id) {
-                            if (req.body.price) {
-                                customer.contract.id(req.params.contractId).price = req.body.price;
+                            if (req.body.accepted_by) {
+                                console.log('accepted by',req.body.accepted_by)
+                                customer.contracts.id(req.params.contractId).accepted_by = req.body.accepted_by;
                             }
-                            if (req.body.quantitie) {
-                                customer.contract.id(req.params.contractId).quantitie = req.body.quantitie;
+                            if (req.body.remarks) {
+                                customer.contracts.id(req.params.contractId).Estimation = req.body.remarks;
                             }
-                            if (req.body.name) {
-                                customer.contract.id(req.params.contractId).name = req.body.name;
-                            }
-                            if (req.body.contract_type) {
-                                customer.contract.id(req.params.contractId).contract_type = req.body.contract_type;
-                            }
+                            // if (req.body.name) {
+                            //     customer.contract.id(req.params.contractId).name = req.body.name;
+                            // }
+                            // if (req.body.contract_type) {
+                            //     customer.contract.id(req.params.contractId).contract_type = req.body.contract_type;
+                            // }
                             customer.save()
                                 .then((customer) => {
                                     customers.findById(customer._id)
