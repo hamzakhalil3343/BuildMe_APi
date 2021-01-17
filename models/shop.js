@@ -235,6 +235,10 @@ var orderSchema = new Schema({
     contractor_name:{
         type:String,
         default:''
+    },
+    details:{
+        type:String,
+        default:''
     }
     
 }, {
