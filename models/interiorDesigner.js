@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-var contractSchema = new Schema({
+var ProjectsSchema = new Schema({
     name:{
         type:String,
         default:''
-    },
-    isAuthenticated:{
-        type:Boolean,
-        required:false   
     },
 
     details: {
@@ -40,7 +36,7 @@ var contractSchema = new Schema({
         default:''
 
     },
-    contracts:[contractSchema]
+    project:[ProjectsSchema]
 }, {
     timestamps: true
 });

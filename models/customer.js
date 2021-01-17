@@ -17,6 +17,11 @@ var contractSchema = new Schema({
         type: String,
         default: '',
         
+    },
+    contract_type:{
+        type: String,
+        default: '',
+        required:true
     }
     
    

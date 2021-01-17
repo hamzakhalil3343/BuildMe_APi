@@ -87,9 +87,17 @@ router.post('/signup', (req, res, next) => {
 router.post('/login', passport.authenticate('local'), (req, res) => {
   console.log(req.body);
   var token = authenticate.getToken({_id: req.user._id});
+
+  // if (req.user.user_type=='interiorDesigners'){
+  //   interiorDesigners.findOne({"interiorDesigner_id":req.user._id}).than(element=>{
+  //     res.statusCode = 200;
+  //     res.setHeader('Content-Type', 'text/plain');
+  //     res.json({success: true,id:req.user._id,name:req.user.firstname,inter:element, token: token, status: 'You are successfully logged in from here!'});
+  //   })
+  // }
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.json({success: true,id:req.user._id,name:req.user.firstname, token: token, status: 'You are successfully logged in!'});
+  res.json({success: true,id:req.user._id,name:req.user.firstname,userType:req.user.user_type, token: token, status: 'You are successfully logged in!'});
 });
 
 router.get('/logout', (req, res) => {

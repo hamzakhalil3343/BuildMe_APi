@@ -134,15 +134,15 @@ interiorDesignerRouter.route('/:interiorDesignerId')
             }, (err) => next(err))
             .catch((err) => next(err));
     });
-    //Route to contract 
-    interiorDesignerRouter.route('/:interiorDesignerId/contract')
+    //Route to project 
+    interiorDesignerRouter.route('/:interiorDesignerId/project')
         .get((req, res, next) => {
             interiorDesigners.findById(req.params.interiorDesignerId)
                 .then((interiorDesigner) => {
                     if (interiorDesigner != null) {
                         res.statusCode = 200;
                         res.setHeader('Content-Type', 'application/json');
-                        res.json(interiorDesigner.contract);
+                        res.json(interiorDesigner.project);
                     }
                     else {
                         err = new Error('interiorDesigner ' + req.params.interiorDesignerId + ' not found');
@@ -156,7 +156,7 @@ interiorDesignerRouter.route('/:interiorDesignerId')
             // var query = { 'interiorDesigner_id': req.params.interiorDesignerId };
         
 
-            // interiorDesigners.findOneAndUpdate(query, "contracts":[{"name":req.body.name,"details":req.body.details}], { upsert: true }, function (err, doc) {
+            // interiorDesigners.findOneAndUpdate(query, "projects":[{"name":req.body.name,"details":req.body.details}], { upsert: true }, function (err, doc) {
             //     if (err) {console.log(err);return res.send(500, { error: err });}
             //     return res.send('Succesfully saved.');
             // });
@@ -167,7 +167,7 @@ interiorDesignerRouter.route('/:interiorDesignerId')
                         // req.body.author = req.user._id;
                         console.log('req of body', req.body);
                      
-                        interiorDesigner.contracts.push({"name":req.body.name,"details":req.body.details,"additionalDetails":req.body.additionalDetails});
+                        interiorDesigner.project.push({"name":req.body.name,"details":req.body.details,"additionalDetails":req.body.additionalDetails});
     
                         interiorDesigner.save()
                             .then((interiorDesigner) => {
@@ -191,14 +191,14 @@ interiorDesignerRouter.route('/:interiorDesignerId')
         .put((req, res, next) => {
             res.statusCode = 403;
             res.end('PUT operation not supported on /interiorDesigneres/'
-                + req.params.interiorDesignerId + '/contract');
+                + req.params.interiorDesignerId + '/project');
         })
         .delete((req, res, next) => {
             interiorDesigners.findById(req.params.interiorDesignerId)
                 .then((interiorDesigner) => {
                     if (interiorDesigner != null) {
-                        for (var i = (interiorDesigner.contract.length - 1); i >= 0; i--) {
-                            interiorDesigner.contract.id(interiorDesigner.contract[i]._id).remove();
+                        for (var i = (interiorDesigner.project.length - 1); i >= 0; i--) {
+                            interiorDesigner.project.id(interiorDesigner.project[i]._id).remove();
                         }
                         interiorDesigner.save()
                             .then((interiorDesigner) => {
@@ -217,17 +217,17 @@ interiorDesignerRouter.route('/:interiorDesignerId')
         });
     
     
-    //Route of  contract by ID 
+    //Route of  project by ID 
     
     
-    interiorDesignerRouter.route('/:interiorDesignerId/contract/:contractId')
+    interiorDesignerRouter.route('/:interiorDesignerId/project/:projectId')
         .get((req, res, next) => {
             interiorDesigners.findById(req.params.interiorDesignerId)
                 .then((interiorDesigner) => {
-                    if (interiorDesigner != null && interiorDesigner.contract.id(req.params.contractId) != null) {
+                    if (interiorDesigner != null && interiorDesigner.project.id(req.params.projectId) != null) {
                         res.statusCode = 200;
                         res.setHeader('Content-Type', 'application/json');
-                        res.json(interiorDesigner.contract.id(req.params.contractId));
+                        res.json(interiorDesigner.project.id(req.params.projectId));
                     }
                     else if (interiorDesigner == null) {
                         err = new Error('interiorDesigner ' + req.params.interiorDesignerId + ' not found');
@@ -235,7 +235,7 @@ interiorDesignerRouter.route('/:interiorDesignerId')
                         return next(err);
                     }
                     else {
-                        err = new Error('contract ' + req.params.contractId + ' not found');
+                        err = new Error('project ' + req.params.projectId + ' not found');
                         err.status = 404;
                         return next(err);
                     }
@@ -245,27 +245,27 @@ interiorDesignerRouter.route('/:interiorDesignerId')
         .post((req, res, next) => {
             res.statusCode = 403;
             res.end('POST operation not supported on /interiorDesigners/' + req.params.interiorDesignerId
-                + '/contract/' + req.params.contractId);
+                + '/project/' + req.params.projectId);
         })
         .put((req, res, next) => {
             interiorDesigners.findById(req.params.interiorDesignerId)
                 .then((interiorDesigner) => {
-                    if (interiorDesigner != null && interiorDesigner.contract.id(req.params.contractId) != null) {
-                        // check if the user updating the contract is the same one who posted it
+                    if (interiorDesigner != null && interiorDesigner.project.id(req.params.projectId) != null) {
+                        // check if the user updating the project is the same one who posted it
                         // in the first place
-                        var req_contract_id = interiorDesigner.contract.id(req.params.contractId);
-                        if (req_contract_id) {
+                        var req_project_id = interiorDesigner.project.id(req.params.projectId);
+                        if (req_project_id) {
                             if (req.body.price) {
-                                interiorDesigner.contract.id(req.params.contractId).price = req.body.price;
+                                interiorDesigner.project.id(req.params.projectId).price = req.body.price;
                             }
                             if (req.body.quantitie) {
-                                interiorDesigner.contract.id(req.params.contractId).quantitie = req.body.quantitie;
+                                interiorDesigner.project.id(req.params.projectId).quantitie = req.body.quantitie;
                             }
                             if (req.body.name) {
-                                interiorDesigner.contract.id(req.params.contractId).name = req.body.name;
+                                interiorDesigner.project.id(req.params.projectId).name = req.body.name;
                             }
-                            if (req.body.contract_type) {
-                                interiorDesigner.contract.id(req.params.contractId).contract_type = req.body.contract_type;
+                            if (req.body.project_type) {
+                                interiorDesigner.project.id(req.params.projectId).project_type = req.body.project_type;
                             }
                             interiorDesigner.save()
                                 .then((interiorDesigner) => {
@@ -278,7 +278,7 @@ interiorDesignerRouter.route('/:interiorDesignerId')
                                 }, (err) => next(err));
                         }
                         else {
-                            err = new Error('You cannot update this contract as you are not the author of it!');
+                            err = new Error('You cannot update this project as you are not the author of it!');
                             err.status = 403;
                             return next(err);
                         }
@@ -289,7 +289,7 @@ interiorDesignerRouter.route('/:interiorDesignerId')
                         return next(err);
                     }
                     else {
-                        err = new Error('contract ' + req.params.contractId + ' not found');
+                        err = new Error('project ' + req.params.projectId + ' not found');
                         err.status = 404;
                         return next(err);
                     }
@@ -299,10 +299,10 @@ interiorDesignerRouter.route('/:interiorDesignerId')
         .delete((req, res, next) => {
             interiorDesigners.findById(req.params.interiorDesignerId)
                 .then((interiorDesigner) => {
-                    if (interiorDesigner != null && interiorDesigner.contract.id(req.params.contractId) != null) {
-                        var req_contract_id = interiorDesigner.contract.id(req.params.contractId);
-                        if (req_contract_id) {
-                            interiorDesigner.contract.id(req.params.contractId).remove();
+                    if (interiorDesigner != null && interiorDesigner.project.id(req.params.projectId) != null) {
+                        var req_project_id = interiorDesigner.project.id(req.params.projectId);
+                        if (req_project_id) {
+                            interiorDesigner.project.id(req.params.projectId).remove();
                             interiorDesigner.save()
                                 .then((interiorDesigner) => {
                                     interiorDesigners.findById(interiorDesigner._id)
@@ -314,7 +314,7 @@ interiorDesignerRouter.route('/:interiorDesignerId')
                                 }, (err) => next(err));
                         }
                         else {
-                            err = new Error('You cannot delete this contract as you are not the author of it!');
+                            err = new Error('You cannot delete this project as you are not the author of it!');
                             err.status = 403;
                             return next(err);
                         }
@@ -325,7 +325,7 @@ interiorDesignerRouter.route('/:interiorDesignerId')
                         return next(err);
                     }
                     else {
-                        err = new Error('contract ' + req.params.contractId + ' not found');
+                        err = new Error('project ' + req.params.projectId + ' not found');
                         err.status = 404;
                         return next(err);
                     }

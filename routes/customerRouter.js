@@ -167,7 +167,7 @@ customerRouter.route('/:customerId')
                         // req.body.author = req.user._id;
                         console.log('req of body', req.body);
                      
-                        customer.contracts.push({"name":req.body.name,"details":req.body.details});
+                        customer.contracts.push({"name":req.body.name,"details":req.body.details,"contract_type":req.body.contract_type});
     
                         customer.save()
                             .then((customer) => {
