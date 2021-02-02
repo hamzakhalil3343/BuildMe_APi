@@ -22,7 +22,7 @@ router.get('/:shopname', function(req, res, next) {
         .then((shop) => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            console.log('shop',shop);
+            //console.log('shop',shop);
             shop.forEach(element => {
                 res.json(element);
             });

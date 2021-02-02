@@ -31,7 +31,7 @@ router.post('/signup', (req, res, next) => {
       passport.authenticate('local')(req, res, () => {
         console.log('req.user_type',req.body.user_type);
         if (req.body.user_type === "labour"){
-          labours.create({labour_id:req.user._id,profile_name:req.user.firstname})
+          labours.create({labour_id:req.user._id,profile_name:req.user.firstname+" "+req.user.lastname})
           .then((labour) => {
               // labour._id=User._id;
               console.log('labour  Created ', labour);

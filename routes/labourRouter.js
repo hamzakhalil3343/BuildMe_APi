@@ -71,7 +71,7 @@ labourRouter.route('/:labourId')
         var query = { 'labour_id': req.params.labourId };
         
         if (req.body.hrs_worked != undefined && req.body.labour_rate !== undefined){
-            labours.findOneAndUpdate(query, {"profile_name":req.body.profile_name,"hrs_worked":req.body.hrs_worked,"labour_Type":req.body.labour_type,"labour_rate":req.body.labour_rate}, { upsert: true }, function (err, doc) {
+            labours.findOneAndUpdate(query, {"hrs_worked":req.body.hrs_worked,"labour_Type":req.body.labour_type,"labour_rate":req.body.labour_rate}, { upsert: true }, function (err, doc) {
                 if (err) {console.log(err);return res.send(500, { error: err });}
                 return res.send(200,{message:"Success"});
             });
